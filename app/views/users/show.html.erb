@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+<div class="text-center">
+<%= button_to "Check in now!", new_checkin_path, :class => "btn btn-lg btn-success", :method => 'get' %>
+</div>
+<h3>Past Check-ins</h3>
+<% current_user.checkins.each do |c| %>
+<%= link_to c.created_at.strftime("%A, %B %e, %Y"), checkin_path(c) %>
+<% end %>

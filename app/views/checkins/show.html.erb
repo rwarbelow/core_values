@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<h3><%= @checkin.created_at.strftime("%A, %B %e, %Y") %></h3>
+
+<h5 class=<%= css_color(@checkin.respect_humility_score) %>>Respect and Humility: <%= @checkin.respect_humility_score %></h5>
+<h5>Integrity: <%= @checkin.integrity_score %></h5>
+<h5>Perseverance: <%= @checkin.perseverance_score %></h5>
+<h5>Passion: <%= @checkin.passion_score %></h5>
+<h5>Empowerment: <%= @checkin.empowerment_score %></h5>
+<h5>Team, Love, and Family: <%= @checkin.team_love_family_score %></h5>
+
+<% @checkin.answers.each do |a| %>
+
+<% end %>

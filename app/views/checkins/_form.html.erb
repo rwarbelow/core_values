@@ -1,0 +1,25 @@
+<%= form_tag(checkins_path, method: "post")%>
+<% if @checkin.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@checkin.errors.count, "error") %> prohibited this checkin from being saved:</h2>
+
+  <ul>
+    <% @checkin.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<% @questions.each do |question| %>
+<table>
+<th><%= label_tag(question.question) %></th>
+  <tbody>
+    <td><%= collection_select(:question, question.id, @options, :id, :option, prompt: true) %></td>
+  </tbody>
+</table>
+<br><br>
+
+<% end %>
+<div class="actions">
+  <%= submit_tag("Go!") %>
+</div>
