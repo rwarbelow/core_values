@@ -13,6 +13,8 @@ User.create(username:"rachel", password: "password", password_confirmation: "pas
 User.create(username:"admin", password: "password", password_confirmation: "password",
 						first_name: "rachel", last_name: "warbelow", user_type: "admin")
 
+User.create(username:"admin1", password: "<passw></passw>ord", password_confirmation: "password",
+						first_name: "rachel", last_name: "warbelow", user_type: "admin")
 
 p "Creating Questions"
 Question.create(question: "How are you1?", core_value_id: 1)
