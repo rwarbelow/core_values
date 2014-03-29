@@ -5,6 +5,7 @@ class CreateAnswers < ActiveRecord::Migration
     	t.references :checkin
     	t.references :question
     	t.references :option
+    	t.integer :value
       t.timestamps
     end
   end

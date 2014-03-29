@@ -2,38 +2,44 @@ class Checkin < ActiveRecord::Base
 	belongs_to :user
 	has_many :answers
 
-
-	def perseverance_score
-		answers = select_answers(3)
-		answers.map(&:option).map(&:value).reduce(:+).fdiv(answers.count)
-	end
-
-	def respect_humility_score
-		answers = select_answers(1)
-		answers.map(&:option).map(&:value).reduce(:+).fdiv(answers.count)
-	end
-
-	def integrity_score
-		answers = select_answers(2)
-		answers.map(&:option).map(&:value).reduce(:+).fdiv(answers.count)
-	end
-
-	def team_love_family_score
-		answers = select_answers(6)
-		answers.map(&:option).map(&:value).reduce(:+).fdiv(answers.count)
-	end
-
-	def passion_score
-		answers = select_answers(4)
-		answers.map(&:option).map(&:value).reduce(:+).fdiv(answers.count)
-	end
-
-	def empowerment_score
-		answers = select_answers(5)
-		answers.map(&:option).map(&:value).reduce(:+).fdiv(answers.count)
+	def get_score(core_value_id)
+		answers = select_answers(core_value_id)
+		answers.map(&:value).reduce(:+).fdiv(answers.count).round(1)
 	end
 
 	def select_answers(core_value_id)
 		self.answers.select { |a| a if a.question.core_value.id == core_value_id}
+	end
+
+	def self.gather_last_five(user_id, core_value_id, checkins)
+		a = []
+		checkins.each do |c|
+			a << c.get_score(core_value_id)
+		end
+		a
+	end
+
+	def self.get_last_five_checkins(user_id)
+		where(user_id: user_id).last(10).reverse
+	end
+
+	def self.gather_last_five_dates(user_id, checkins)
+		a = []
+		checkins.each do |c|
+			a << c.created_at
+		end
+		a
+	end
+
+	def total_score
+		answers.map(&:value).reduce(:+).fdiv(answers.count).round(1)
+	end
+
+	def self.gather_last_five_total_scores(user_id, checkins)
+		a = []
+		checkins.each do |c|
+			a << c.total_score
+		end
+		a
 	end
 end

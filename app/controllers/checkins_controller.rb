@@ -30,7 +30,7 @@ class CheckinsController < ApplicationController
   def create
     checkin = Checkin.create(user_id: current_user.id)
     params[:question].each do |question_id, option_id|
-      Answer.create(question_id: question_id, option_id: option_id, user_id: current_user.id, checkin_id: checkin.id)
+      Answer.create(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id, checkin_id: checkin.id)
     end
     redirect_to user_path(current_user)
     # @checkin = Checkin.new(checkin_params)
