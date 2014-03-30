@@ -17,6 +17,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def import
+    User.import(params[:file])
+    redirect_to admin_path, notice: "Users imported."
+  end
+
   def admin_student
     if current_user.admin?
       @student = User.find(params[:id])

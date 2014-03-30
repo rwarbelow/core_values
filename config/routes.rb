@@ -12,7 +12,9 @@ CoreValues::Application.routes.draw do
 
   resources :checkins
 
-  resources :users
+  resources :users do
+    collection { post :import }
+  end
 
   resources :sessions
 
@@ -21,6 +23,7 @@ CoreValues::Application.routes.draw do
   get '/admin/student', to: 'users#admin_student'
   
   delete '/logout', to: 'sessions#destroy'
+
 
   root 'welcome#index'
 
