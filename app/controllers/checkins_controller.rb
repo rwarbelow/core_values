@@ -63,20 +63,6 @@ class CheckinsController < ApplicationController
       redirect_to user_path(current_user)
     rescue ActiveRecord::RecordInvalid => invalid
     end
-
-
-    
-    # @checkin = Checkin.new(checkin_params)
-
-    # respond_to do |format|
-    #   if @checkin.save
-    #     format.html { redirect_to @checkin, notice: 'Checkin was successfully created.' }
-    #     format.json { render action: 'show', status: :created, location: @checkin }
-    #   else
-    #     format.html { render action: 'new' }
-    #     format.json { render json: @checkin.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /checkins/1

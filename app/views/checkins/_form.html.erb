@@ -4,14 +4,10 @@
     <%= flash[:errors] %>
   </div>
 <% end %>
-<% @questions.each do |question| %>
-<div class="halftableleft">
-  <table class='table'>
-    <th><%= label_tag(question.question) %></th>
-    <tbody>
-      <tr><td><%= collection_select(:question, question.id, @options, :id, :option, prompt: true, :required => true) %></td></tr>
-    </tbody>
-  </table>
+<% @questions.shuffle.each do |question| %>
+<div class="questionbox">
+    <h4><%= question.question %></h4>
+      <%= collection_select(:question, question.id, @options, :id, :option, prompt: true, :required => true) %>
   <br>
 </div>
 <% end %>

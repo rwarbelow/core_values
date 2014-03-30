@@ -102,3 +102,17 @@
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
+
+.questionbox {
+	float: left;
+	height: 180px;
+	width: 27%;
+	margin: 30px;
+	padding: 30px;
+	background-color: #ecf0f1;
+	border-radius: 10px;
+}
+
+.questionbox input {
+	display: block;
+}
