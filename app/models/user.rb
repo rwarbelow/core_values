@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	has_secure_password
-	has_many :checkins
-	has_many :answers
+	has_many :checkins, :dependent => :destroy
+	has_many :answers, :dependent => :destroy
 	require 'csv'
 
 	def admin?

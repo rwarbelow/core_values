@@ -91,6 +91,7 @@
 .paddedtable {
 	border-spacing: 10px;
     border-collapse: separate;
+    table-layout: fixed;
 }
 
 .errormessage {
