@@ -73,19 +73,78 @@
 		</table>
 	</div>
 	<div class='halftableright1'>
+	<% if !@strongly_agree.nil? %>
 		<table class="table">
 			<thead>
-				<th>Question</th>
-				<th>Response</th>
-
+				<th>Strongly Agree</th>
 			</thead>
 			<tbody>
-				<% @checkin.answers.sort! { |a, b| a.question.core_value.name <=> b.question.core_value.name }.each do |a| %>
+					<% @strongly_agree.each do |a| %>
 				<tr>
-					<td><strong><%= a.question.question %></strong> <br><br>  (<i><%= a.question.core_value.name %></i>) <br><br></td>
-					<td><%= a.option.option %></td>
+					<td><%= a.question.question %></td>
 				</tr>
 				<% end %>
 			</tbody>
 		</table>
+	<% end %>
+
+	<% if !@agree.nil? %>
+		<table class="table">
+			<thead>
+				<th>Agree</th>
+			</thead>
+			<tbody>
+					<% @agree.each do |a| %>
+				<tr>
+					<td><%= a.question.question %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
+
+		<% if !@neutral.nil? %>
+		<table class="table">
+			<thead>
+				<th>Neutral</th>
+			</thead>
+			<tbody>
+					<% @neutral.each do |a| %>
+				<tr>
+					<td><%= a.question.question %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
+
+	<% if !@disagree.nil? %>
+		<table class="table">
+			<thead>
+				<th>Disagree</th>
+			</thead>
+			<tbody>
+					<% @disagree.each do |a| %>
+				<tr>
+					<td><%= a.question.question %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
+
+	<% if !@strongly_disagree.nil? %>
+		<table class="table">
+			<thead>
+				<th>Strongly Disagree</th>
+			</thead>
+			<tbody>
+					<% @strongly_disagree.each do |a| %>
+				<tr>
+					<td><%= a.question.question %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
 	</div>

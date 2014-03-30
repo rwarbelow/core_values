@@ -20,6 +20,12 @@ class CheckinsController < ApplicationController
       @all_checkins = Checkin.where(user_id: @student_id).sort! { |a, b| a.created_at <=> b.created_at }
       @back_id = @all_checkins[(@all_checkins.index(@checkin) - 1)]
       @forward_id = @all_checkins[(@all_checkins.index(@checkin) + 1)] || @all_checkins[0]
+      @grouped_answers = @checkin.answers.group_by{ |a| a.option.option }
+      @strongly_disagree = @grouped_answers["Strongly disagree"]
+      @disagree = @grouped_answers["Disagree"]
+      @neutral = @grouped_answers["Neutral"]
+      @agree = @grouped_answers["Agree"]
+      @strongly_agree = @grouped_answers["Strongly agree"]
       render 'checkins/show'
     elsif current_user
       redirect_to user_path(current_user)
@@ -49,21 +55,21 @@ class CheckinsController < ApplicationController
         params[:question].each do |question_id, option_id|
           if option_id.to_i == 0
             flash[:errors] = "Oh no! You forgot to select an answer for one or more questions :("
-            @questions = Question.all
-            @options = Option.all
-            redirect_to new_checkin_path
-            return
-          else
-            Answer.create(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id, checkin_id: @checkin.id)
+              @questions = Question.all
+              @options = Option.all
+              redirect_to new_checkin_path
+              return
+            else
+              Answer.create(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id, checkin_id: @checkin.id)
+            end
+            @checkin.save
           end
-          @checkin.save
+          @comment = Comment.create(user_id: current_user.id, checkin_id: @checkin.id, comment: params[:comment])
         end
-        @comment = Comment.create(user_id: current_user.id, checkin_id: @checkin.id, comment: params[:comment])
+        redirect_to user_path(current_user)
+      rescue ActiveRecord::RecordInvalid => invalid
       end
-      redirect_to user_path(current_user)
-    rescue ActiveRecord::RecordInvalid => invalid
     end
-  end
 
   # PATCH/PUT /checkins/1
   # PATCH/PUT /checkins/1.json
