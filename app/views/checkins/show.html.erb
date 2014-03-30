@@ -2,11 +2,11 @@
 
 <h3><%= @checkin.user.full_name if @checkin.user.user_type == "admin" %></h3>
 <h5><% if @back_id %>
-	<%= link_to '<i class="glyphicon glyphicon-backward "></i>'.html_safe, checkin_path(@back_id) %> 
+	<%= link_to '&larr;'.html_safe, checkin_path(@back_id) %> 
 	<% end %> 
 	<%= @checkin.created_at.strftime("%A, %B %e, %Y") %> 
 	<% if @forward_id %>
-	<%= link_to '<i class="glyphicon glyphicon-forward "></i>'.html_safe, checkin_path(@forward_id) %> </h5>
+	<%= link_to '&rarr;'.html_safe, checkin_path(@forward_id) %> </h5>
 	<% end %>
 	<br>
 	<div class='halftableleft'>
