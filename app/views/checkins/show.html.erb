@@ -45,12 +45,30 @@
 		<br>
 		<table class='table'>
 			<thead>
-				<th>Comments</th>
+				<th>Student Comments</th>
 			</thead>
 			<tbody>
-				<tr>
-					<td><%= @checkin.user.username %></td>
-				</tr>
+				<% @student_comments.each do |c| %>
+					<tr>
+						<td><%= c.comment %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<br>
+		<table class='table'>
+			<thead>
+				<th>Staff Comments</th>
+			</thead>
+			<tbody>
+				<% @admin_comments.each do |c| %>
+					<tr>
+						<td><%= c.comment %></td>
+					</tr>
+					<tr>
+						<td><%= c.user.last_name %></td>
+					</tr>
+				<% end %>
 			</tbody>
 		</table>
 	</div>

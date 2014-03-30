@@ -49,5 +49,11 @@
 				<td><strong><%= score %>%</strong></td>
 			<% end %>
 		</tr>
+		<tr>
+			<td>Comments</td>
+			<% @comments.each do |c| %>
+				<td><%= c.comment %></td>
+			<% end %>
+		</tr>
 	</tbody>
 </table>

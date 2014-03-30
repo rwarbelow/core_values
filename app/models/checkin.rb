@@ -1,6 +1,7 @@
 class Checkin < ActiveRecord::Base
 	belongs_to :user
 	has_many :answers
+	has_many :comments
 
 	def get_score(core_value_id)
 		answers = select_answers(core_value_id)
@@ -39,6 +40,16 @@ class Checkin < ActiveRecord::Base
 		a = []
 		checkins.each do |c|
 			a << c.total_score
+		end
+		a
+	end
+
+	def self.get_last_five_comments(student_id, checkins)
+		a = []
+		checkins.each do |c|
+			c.comments.each do |m|
+				a << m if m.user_id == student_id
+			end
 		end
 		a
 	end

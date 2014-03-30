@@ -1,5 +1,7 @@
 CoreValues::Application.routes.draw do
 
+  resources :comments
+
   resources :options
 
   resources :answers

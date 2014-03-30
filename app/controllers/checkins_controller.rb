@@ -12,6 +12,8 @@ class CheckinsController < ApplicationController
   def show
     if current_user.id == @checkin.user_id || current_user.admin?
       @checkin = Checkin.find(params[:id])
+      @student_comments = @checkin.comments.map { |c| c if c.user_id == @checkin.user.id }
+      @admin_comments = @checkin.comments - @student_comments
       @student_id = @checkin.user_id
       @answers = @checkin.answers
       @checkin_id = @checkin.id
@@ -46,7 +48,7 @@ class CheckinsController < ApplicationController
         @checkin = Checkin.new(user_id: current_user.id)
         params[:question].each do |question_id, option_id|
           if option_id.to_i == 0
-            flash[:errors] = "Oh no! You forgot to select an answer for one or more the questions :("
+            flash[:errors] = "Oh no! You forgot to select an answer for one or more questions :("
             @questions = Question.all
             @options = Option.all
             redirect_to new_checkin_path
@@ -56,6 +58,7 @@ class CheckinsController < ApplicationController
           end
           @checkin.save
         end
+        @comment = Comment.create(user_id: current_user.id, checkin_id: @checkin.id, comment: params[:comment])
       end
       redirect_to user_path(current_user)
     rescue ActiveRecord::RecordInvalid => invalid

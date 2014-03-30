@@ -28,6 +28,7 @@ class UsersController < ApplicationController
       @empowerment_scores = Checkin.gather_last_five(@student, 5, @checkins)
       @team_scores = Checkin.gather_last_five(@student, 6, @checkins)
       @total_scores = Checkin.gather_last_five_total_scores(@student, @checkins)
+      @comments = Checkin.get_last_five_comments(@student.id, @checkins)
     else
       redirect_to :root
     end
@@ -46,6 +47,7 @@ class UsersController < ApplicationController
     @team_scores = Checkin.gather_last_five(@student, 6, @checkins)
     @dates = Checkin.gather_last_five_dates(@student, @checkins)
     @total_scores = Checkin.gather_last_five_total_scores(@student, @checkins)
+    @comments = Checkin.get_last_five_comments(@student, @checkins)
   end
 
   # GET /users/new
