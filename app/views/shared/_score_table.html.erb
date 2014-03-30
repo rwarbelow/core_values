@@ -3,57 +3,60 @@
 	<thead>
 		<th></th>
 		<% @checkins.each do |c| %>
-			<th><%= link_to c.created_at.strftime("%B %e"), checkin_path(c) %></th>
+		<th><%= link_to c.created_at.strftime("%B %e"), checkin_path(c) %></th>
 		<% end %>
 	</thead>
 	<tbody>
 		<tr>
-			<td>Respect</td>
+			<td><a data-toggle="modal" data-target="#respect">Respect and Humility</a></td>
 			<% @respect_scores.each do |score| %>
-				<td class="<%= css(score) %>"><%= score %>%</td>
+			<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
-			<td>Integrity</td>
+			<td><a data-toggle="modal" data-target="#integrity">Integrity</a></td>
 			<% @integrity_scores.each do |score| %>
-				<td class="<%= css(score) %>"><%= score %>%</td>
+			<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
-			<td>Perseverance</td>
+			<td><a data-toggle="modal" data-target="#perseverance">Perseverance</a></td>
 			<% @perseverance_scores.each do |score| %>
-				<td class="<%= css(score) %>"><%= score %>%</td>
+			<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
-			<td>Passion</td>
+			<td><a data-toggle="modal" data-target="#passion">Passion</a></td>
 			<% @passion_scores.each do |score| %>
-				<td class="<%= css(score) %>"><%= score %>%</td>
+			<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
-			<td>Empowerment</td>
+			<td><a data-toggle="modal" data-target="#empowerment">Empowerment</a></td>
 			<% @empowerment_scores.each do |score| %>
-				<td class="<%= css(score) %>"><%= score %>%</td>
+			<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
-			<td>Team</td>
+					<td><a data-toggle="modal" data-target="#team">Team, Love, Family</a></td>
 			<% @team_scores.each do |score| %>
-				<td class="<%= css(score) %>"><%= score %>%</td>
+			<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr class="info">
 			<td><strong>Averages</strong></td>
 			<% @total_scores.each do |score| %>
-				<td><strong><%= score %>%</strong></td>
+			<td><strong><%= score %>%</strong></td>
 			<% end %>
 		</tr>
 		<tr>
 			<td>Comments</td>
 			<% @comments.each do |c| %>
-				<td><%= c.comment %></td>
+			<td><%= c.comment %></td>
 			<% end %>
 		</tr>
 	</tbody>
 </table>
+
+
+<%= render '/shared/modals' %>

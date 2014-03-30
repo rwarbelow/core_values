@@ -34,6 +34,12 @@ class UsersController < ApplicationController
       @team_scores = Checkin.gather_last_five(@student, 6, @checkins)
       @total_scores = Checkin.gather_last_five_total_scores(@student, @checkins)
       @comments = Checkin.get_last_five_comments(@student.id, @checkins)
+      @respect_questions = CoreValue.find(1).questions
+      @integrity_questions = CoreValue.find(2).questions
+      @perseverance_questions = CoreValue.find(3).questions
+      @passion_questions = CoreValue.find(4).questions
+      @empowerment_questions = CoreValue.find(5).questions
+      @team_questions = CoreValue.find(6).questions
     else
       redirect_to :root
     end
@@ -53,6 +59,12 @@ class UsersController < ApplicationController
     @dates = Checkin.gather_last_five_dates(@student, @checkins)
     @total_scores = Checkin.gather_last_five_total_scores(@student, @checkins)
     @comments = Checkin.get_last_five_comments(@student, @checkins)
+    @respect_questions = CoreValue.find(1).questions
+    @integrity_questions = CoreValue.find(2).questions
+    @perseverance_questions = CoreValue.find(3).questions
+    @passion_questions = CoreValue.find(4).questions
+    @empowerment_questions = CoreValue.find(5).questions
+    @team_questions = CoreValue.find(6).questions
   end
 
   # GET /users/new

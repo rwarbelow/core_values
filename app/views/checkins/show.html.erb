@@ -17,27 +17,27 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>Respect and Humility</td>
+					<td><a data-toggle="modal" data-target="#respect">Respect and Humility</a></td>
 					<td class="<%= css(@checkin.get_score(1)) %>"><%= @checkin.get_score(1) %></td>
 				</tr>
 				<tr>
-					<td>Integrity</td>
+					<td><a data-toggle="modal" data-target="#integrity">Integrity</a></td>
 					<td class="<%= css(@checkin.get_score(2)) %>"><%= @checkin.get_score(2) %></td>
 				</tr>
 				<tr>
-					<td>Perseverance</td>
+					<td><a data-toggle="modal" data-target="#perseverance">Perseverance</a></td>
 					<td class="<%= css(@checkin.get_score(3)) %>"><%= @checkin.get_score(3) %></td>
 				</tr>
 				<tr>
-					<td>Passion</td>
+					<td><a data-toggle="modal" data-target="#passion">Passion</a></td>
 					<td class="<%= css(@checkin.get_score(4)) %>"><%= @checkin.get_score(4) %></td>
 				</tr>
 				<tr>
-					<td>Empowerment</td>
+					<td><a data-toggle="modal" data-target="#empowerment">Empowerment</a></td>
 					<td class="<%= css(@checkin.get_score(5)) %>"><%= @checkin.get_score(5) %></td>
 				</tr>
 				<tr>
-					<td>Team, Love, Family</td>
+					<td><a data-toggle="modal" data-target="#team">Team, Love, and Family</a></td>
 					<td class="<%= css(@checkin.get_score(6)) %>"><%= @checkin.get_score(6) %></td>
 				</tr>
 			</tbody>
@@ -148,3 +148,6 @@
 		</table>
 	<% end %>
 	</div>
+
+<%= render '/shared/modals' %>
+

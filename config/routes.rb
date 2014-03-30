@@ -2,14 +2,6 @@ CoreValues::Application.routes.draw do
 
   resources :comments
 
-  resources :options
-
-  resources :answers
-
-  resources :questions
-
-  resources :core_values
-
   resources :checkins
 
   resources :users do
@@ -27,7 +19,6 @@ CoreValues::Application.routes.draw do
   get '/404' => 'errors#not_found'
   get '/422' => 'errors#server_error'
   get '/500' => 'errors#server_error'
-
 
   root 'welcome#index'
 

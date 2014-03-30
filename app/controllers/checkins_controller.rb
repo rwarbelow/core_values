@@ -26,6 +26,12 @@ class CheckinsController < ApplicationController
       @neutral = @grouped_answers["Neutral"]
       @agree = @grouped_answers["Agree"]
       @strongly_agree = @grouped_answers["Strongly agree"]
+      @respect_questions = CoreValue.find(1).questions
+      @integrity_questions = CoreValue.find(2).questions
+      @perseverance_questions = CoreValue.find(3).questions
+      @passion_questions = CoreValue.find(4).questions
+      @empowerment_questions = CoreValue.find(5).questions
+      @team_questions = CoreValue.find(6).questions
       render 'checkins/show'
     elsif current_user
       redirect_to user_path(current_user)
@@ -92,6 +98,48 @@ class CheckinsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to checkins_url }
       format.json { head :no_content }
+    end
+  end
+
+  def respect
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def integrity
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def perseverance
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def passion
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def empowerment
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def team
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 
