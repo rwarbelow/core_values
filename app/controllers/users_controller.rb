@@ -7,19 +7,43 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def admin_panel
+    if current_user.admin?
+
+    else
+      redirect_to :root
+    end
+  end
+
+  def admin_student
+    if current_user.admin?
+      @student = User.find(params[:id])
+      @checkins = Checkin.get_last_five_checkins(@student)
+      @respect_scores = Checkin.gather_last_five(@student, 1, @checkins)
+      @integrity_scores = Checkin.gather_last_five(@student, 2, @checkins)
+      @perseverance_scores = Checkin.gather_last_five(@student, 3, @checkins)
+      @passion_scores = Checkin.gather_last_five(@student, 4, @checkins)
+      @empowerment_scores = Checkin.gather_last_five(@student, 5, @checkins)
+      @team_scores = Checkin.gather_last_five(@student, 6, @checkins)
+      @total_scores = Checkin.gather_last_five_total_scores(@student, @checkins)
+    else
+      redirect_to :root
+    end
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show
-    @current_user = current_user.id
-    @checkins = Checkin.get_last_five_checkins(@current_user)
-    @respect_scores = Checkin.gather_last_five(@current_user, 1, @checkins)
-    @integrity_scores = Checkin.gather_last_five(@current_user, 2, @checkins)
-    @perseverance_scores = Checkin.gather_last_five(@current_user, 3, @checkins)
-    @passion_scores = Checkin.gather_last_five(@current_user, 4, @checkins)
-    @empowerment_scores = Checkin.gather_last_five(@current_user, 5, @checkins)
-    @team_scores = Checkin.gather_last_five(@current_user, 6, @checkins)
-    @dates = Checkin.gather_last_five_dates(@current_user, @checkins)
-    @total_scores = Checkin.gather_last_five_total_scores(@current_user, @checkins)
+    @student = current_user.id
+    @checkins = Checkin.get_last_five_checkins(@student)
+    @respect_scores = Checkin.gather_last_five(@student, 1, @checkins)
+    @integrity_scores = Checkin.gather_last_five(@student, 2, @checkins)
+    @perseverance_scores = Checkin.gather_last_five(@student, 3, @checkins)
+    @passion_scores = Checkin.gather_last_five(@student, 4, @checkins)
+    @empowerment_scores = Checkin.gather_last_five(@student, 5, @checkins)
+    @team_scores = Checkin.gather_last_five(@student, 6, @checkins)
+    @dates = Checkin.gather_last_five_dates(@student, @checkins)
+    @total_scores = Checkin.gather_last_five_total_scores(@student, @checkins)
   end
 
   # GET /users/new
@@ -82,4 +106,4 @@ class UsersController < ApplicationController
     def user_params
       params[:user]
     end
-end
+  end

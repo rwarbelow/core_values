@@ -2,8 +2,12 @@
 
 <h3><%= @checkin.created_at.strftime("%A, %B %e, %Y") %></h3>
 
-<h5 class=<%= css_color(@checkin.get_score(1)) %>>Respect and Humility: <%= @checkin.get_score(1) %></h5>
+<h5>Respect and Humility: <%= @checkin.get_score(1) %></h5>
 <h5>Integrity: <%= @checkin.get_score(2) %></h5>
+<h5>Perseverance: <%= @checkin.get_score(3) %></h5>
+<h5>Passion: <%= @checkin.get_score(4) %></h5>
+<h5>Empowerment: <%= @checkin.get_score(5) %></h5>
+<h5>Team: <%= @checkin.get_score(6) %></h5>
 
 
 <% @checkin.answers.each do |a| %>

@@ -13,19 +13,29 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
+					<h3><strong>SWOT CoreValues Tracker</strong></h3>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<%= button_to "Logout", logout_path, :method => "delete", :class => "btn btn-primary" %>
+					<% if current_user.admin? %>
+					<li>
+						<%= form_tag admin_student_path, :method=>'get' do %>
+						<%= select_tag "id", options_from_collection_for_select(User.select { |s| s.user_type == "student" }, :id, "full_name"),{multiple:false, :prompt => "Select a Student", class: 'chosen-select'} %>
+						<%= submit_tag "Go", class: 'btn btn-sm'%>
+						<% end %>
+					</li>
+					<% end %>
+					<% if current_user.admin? %>
+							<li><%= link_to "Home", admin_path%></li>
+					<% else %>
+							<li><%= link_to "Home", user_path(current_user.id)  %></li>
+					<% end %>
+					<li><%= link_to "Logout", logout_path, :method => "delete" %></li>
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>
 	<% end %>
 	<div class="container">
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
 		<%= yield %>
 	</div>
 </body>

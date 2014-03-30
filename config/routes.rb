@@ -13,6 +13,10 @@ CoreValues::Application.routes.draw do
   resources :users
 
   resources :sessions
+
+  get '/admin', to: 'users#admin_panel'
+
+  get '/admin/student', to: 'users#admin_student'
   
   delete '/logout', to: 'sessions#destroy'
 

@@ -2,56 +2,5 @@
 <div class="text-center">
 <%= button_to "Check in now!", new_checkin_path, :class => "btn btn-lg btn-success", :method => 'get' %>
 </div>
-<h3>Past Check-ins</h3>
-<table class="table">
-	<thead>
-		<th></th>
-		<% @dates.each do |date| %>
-			<th><%= date.strftime("%m/%e") %></th>
-		<% end %>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Respect</td>
-			<% @respect_scores.each do |score| %>
-				<td><%= score %>%</td>
-			<% end %>
-		</tr>
-		<tr>
-			<td>Integrity</td>
-			<% @integrity_scores.each do |score| %>
-				<td><%= score %>%</td>
-			<% end %>
-		</tr>
-		<tr>
-			<td>Perseverance</td>
-			<% @perseverance_scores.each do |score| %>
-				<td><%= score %>%</td>
-			<% end %>
-		</tr>
-		<tr>
-			<td>Passion</td>
-			<% @passion_scores.each do |score| %>
-				<td><%= score %>%</td>
-			<% end %>
-		</tr>
-		<tr>
-			<td>Empowerment</td>
-			<% @empowerment_scores.each do |score| %>
-				<td><%= score %>%</td>
-			<% end %>
-		</tr>
-		<tr>
-			<td>Team</td>
-			<% @team_scores.each do |score| %>
-				<td><%= score %>%</td>
-			<% end %>
-		</tr>
-		<tr class="active">
-			<td>Average</td>
-			<% @total_scores.each do |score| %>
-				<td><%= score %>%</td>
-			<% end %>
-		</tr>
-	</tbody>
-</table>
+<%= render '/shared/score_table' %>
+

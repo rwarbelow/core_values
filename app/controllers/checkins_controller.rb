@@ -12,6 +12,11 @@ class CheckinsController < ApplicationController
   def show
     @checkin = Checkin.find(params[:id])
     @answers = @checkin.answers
+    if current_user.id == @checkin.user_id || current_user.admin?
+      render 'checkins/show'
+    else
+      redirect_to :root
+    end
   end
 
   # GET /checkins/new

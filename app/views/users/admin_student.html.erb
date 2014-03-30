@@ -1,0 +1,6 @@
+<% if current_user.admin? %>
+<h3><%= @student.full_name %>'s Check-ins </h3>
+<%= render '/shared/score_table' %>
+
+
+<% end %>
