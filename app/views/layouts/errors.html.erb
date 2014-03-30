@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CoreValues</title>
+	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<%= csrf_meta_tags %>
+</head>
+<body>
+	<% if current_user %>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<h3><strong>SWOT CoreValues Tracker</strong></h3>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<% if current_user.admin? %>
+					<li>
+						<%= form_tag import_users_path, multipart: true do %>
+						<%= file_field_tag :file %>
+						<%= submit_tag "Import" %>
+						<% end %>
+					</li>
+					<li>
+						<%= form_tag admin_student_path, :method=>'get' do %>
+						<%= select_tag "id", options_from_collection_for_select(User.select { |s| s.user_type == "student" }, :id, "full_name"),{multiple:false, :prompt => "Select a Student", class: 'chosen-select'} %>
+						<%= submit_tag "Go", class: 'btn btn-sm'%>
+						<% end %>
+					</li>
+					<% end %>
+					<% if current_user.admin? %>
+					<li><%= link_to "#{current_user.full_name}", admin_path%></li>
+					<% else %>
+					<li><%= link_to "#{current_user.full_name}", user_path(current_user.id)  %></li>
+					<% end %>
+					<li><%= link_to "Logout", logout_path, :method => "delete" %></li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+	<% end %>
+	<div class="container">
+		<%= yield %>
+	</div>
+</body>
+</html>

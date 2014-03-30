@@ -49,9 +49,9 @@
 			</thead>
 			<tbody>
 				<% @student_comments.each do |c| %>
-					<tr>
-						<td><%= c.comment %></td>
-					</tr>
+				<tr>
+					<td><%= c.comment %></td>
+				</tr>
 				<% end %>
 			</tbody>
 		</table>
@@ -62,26 +62,27 @@
 			</thead>
 			<tbody>
 				<% @admin_comments.each do |c| %>
-					<tr>
-						<td><%= c.comment %></td>
-					</tr>
-					<tr>
-						<td><%= c.user.last_name %></td>
-					</tr>
+				<tr>
+					<td><%= c.comment %></td>
+				</tr>
+				<tr>
+					<td><%= c.user.last_name %></td>
+				</tr>
 				<% end %>
 			</tbody>
 		</table>
 	</div>
-	<div class='halftableright'>
+	<div class='halftableright1'>
 		<table class="table">
 			<thead>
 				<th>Question</th>
 				<th>Response</th>
+
 			</thead>
 			<tbody>
-				<% @checkin.answers.each do |a| %>
+				<% @checkin.answers.sort! { |a, b| b.question.core_value.name <=> a.question.core_value.name }.each do |a| %>
 				<tr>
-					<td><%= a.question.question %></td>
+					<td><strong><%= a.question.question %></strong> <br><br>  (<i><%= a.question.core_value.name %></i>) <br><br></td>
 					<td><%= a.option.option %></td>
 				</tr>
 				<% end %>

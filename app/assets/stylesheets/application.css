@@ -52,6 +52,12 @@
 	width: 33%;
 }
 
+.halftableright1 {
+	margin-left: 80px;
+	float:left;
+	width: 50%;
+}
+
 .peterriver {
 	background-color: #45a9ec;
 	font-weight: bold;
