@@ -80,7 +80,7 @@
 
 			</thead>
 			<tbody>
-				<% @checkin.answers.sort! { |a, b| b.question.core_value.name <=> a.question.core_value.name }.each do |a| %>
+				<% @checkin.answers.sort! { |a, b| a.question.core_value.name <=> b.question.core_value.name }.each do |a| %>
 				<tr>
 					<td><strong><%= a.question.question %></strong> <br><br>  (<i><%= a.question.core_value.name %></i>) <br><br></td>
 					<td><%= a.option.option %></td>
