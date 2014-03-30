@@ -11,6 +11,25 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
 
+  def css(score)
+    case score
+    when 90..100
+      "peterriver"
+    when 80...90
+      "emerald"
+    when 70...80
+      "sunflower"
+    when 60...70
+      "carrot"
+    when 50...70
+      "pumpkin"
+    when 0...50
+      "pomegranate"
+    end
+  end
+  
+  helper_method :css
+
   def authorize
   	redirect_to login_url, alert: "Not authorized" if current_user.nil?
   end

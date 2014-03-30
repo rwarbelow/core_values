@@ -20,7 +20,7 @@ class Checkin < ActiveRecord::Base
 	end
 
 	def self.get_last_five_checkins(user_id)
-		where(user_id: user_id).last(10).reverse
+		where(user_id: user_id).last(8).reverse
 	end
 
 	def self.gather_last_five_dates(user_id, checkins)

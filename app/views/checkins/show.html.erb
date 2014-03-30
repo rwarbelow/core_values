@@ -1,15 +1,72 @@
 <p id="notice"><%= notice %></p>
 
-<h3><%= @checkin.created_at.strftime("%A, %B %e, %Y") %></h3>
-
-<h5>Respect and Humility: <%= @checkin.get_score(1) %></h5>
-<h5>Integrity: <%= @checkin.get_score(2) %></h5>
-<h5>Perseverance: <%= @checkin.get_score(3) %></h5>
-<h5>Passion: <%= @checkin.get_score(4) %></h5>
-<h5>Empowerment: <%= @checkin.get_score(5) %></h5>
-<h5>Team: <%= @checkin.get_score(6) %></h5>
-
-
-<% @checkin.answers.each do |a| %>
-
-<% end %>
+<h3><%= @checkin.user.full_name if @checkin.user.user_type == "admin" %></h3>
+<h5><% if @back_id %>
+	<%= link_to '<i class="glyphicon glyphicon-backward "></i>'.html_safe, checkin_path(@back_id) %> 
+	<% end %> 
+	<%= @checkin.created_at.strftime("%A, %B %e, %Y") %> 
+	<% if @forward_id %>
+	<%= link_to '<i class="glyphicon glyphicon-forward "></i>'.html_safe, checkin_path(@forward_id) %> </h5>
+	<% end %>
+	<br>
+	<div class='halftableleft'>
+		<table class="table">
+			<thead>
+				<th>Core Value</th>
+				<th>Score</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Respect and Humility</td>
+					<td class="<%= css(@checkin.get_score(1)) %>"><%= @checkin.get_score(1) %></td>
+				</tr>
+				<tr>
+					<td>Integrity</td>
+					<td class="<%= css(@checkin.get_score(2)) %>"><%= @checkin.get_score(2) %></td>
+				</tr>
+				<tr>
+					<td>Perseverance</td>
+					<td class="<%= css(@checkin.get_score(3)) %>"><%= @checkin.get_score(3) %></td>
+				</tr>
+				<tr>
+					<td>Passion</td>
+					<td class="<%= css(@checkin.get_score(4)) %>"><%= @checkin.get_score(4) %></td>
+				</tr>
+				<tr>
+					<td>Empowerment</td>
+					<td class="<%= css(@checkin.get_score(5)) %>"><%= @checkin.get_score(5) %></td>
+				</tr>
+				<tr>
+					<td>Team, Love, Family</td>
+					<td class="<%= css(@checkin.get_score(6)) %>"><%= @checkin.get_score(6) %></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<table class='table'>
+			<thead>
+				<th>Comments</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= @checkin.user.username %></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class='halftableright'>
+		<table class="table">
+			<thead>
+				<th>Question</th>
+				<th>Response</th>
+			</thead>
+			<tbody>
+				<% @checkin.answers.each do |a| %>
+				<tr>
+					<td><%= a.question.question %></td>
+					<td><%= a.option.option %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>

@@ -1,3 +1,30 @@
 <% if current_user.admin? %>
-	
+	<div class="halftableleft">
+		<table class="table ">
+			<thead>
+				<th><h4>Checked-in Today</h4></th>
+			</thead>
+			<tbody>
+				<% @students_today.each do |s| %>
+				<tr>
+					<td><%= link_to "#{s.full_name}", admin_student_path(:id => s.id) %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+	<div class="halftableright">
+		<table class="table ">
+			<thead>
+				<th><h4>Waiting for Check-in</h4></th>
+			</thead>
+			<tbody>
+				<% @all_other_students.each do |s| %>
+				<tr>
+					<td><%= link_to "#{s.full_name}", admin_student_path(:id => s.id) %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
 <% end %>

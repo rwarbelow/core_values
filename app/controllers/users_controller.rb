@@ -9,7 +9,9 @@ class UsersController < ApplicationController
 
   def admin_panel
     if current_user.admin?
-
+      @all_students = User.select { |s| s.user_type == "student"}.sort! { |a,b| a.last_name <=> b.last_name }
+      @students_today = @all_students.map { |s| s if (!s.checkins.last.nil? && s.checkins.last.created_at.strftime("%Y-%m-%e") == (Date.today +1).to_s) }.compact! || []
+      @all_other_students = @all_students - @students_today
     else
       redirect_to :root
     end

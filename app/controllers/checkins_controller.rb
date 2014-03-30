@@ -10,10 +10,17 @@ class CheckinsController < ApplicationController
   # GET /checkins/1
   # GET /checkins/1.json
   def show
-    @checkin = Checkin.find(params[:id])
-    @answers = @checkin.answers
     if current_user.id == @checkin.user_id || current_user.admin?
+      @checkin = Checkin.find(params[:id])
+      @student_id = @checkin.user_id
+      @answers = @checkin.answers
+      @checkin_id = @checkin.id
+      @all_checkins = Checkin.where(user_id: @student_id).sort! { |a, b| a.created_at <=> b.created_at }
+      @back_id = @all_checkins[(@all_checkins.index(@checkin) - 1)]
+      @forward_id = @all_checkins[(@all_checkins.index(@checkin) + 1)] || @all_checkins[0]
       render 'checkins/show'
+    elsif current_user
+      redirect_to user_path(current_user)
     else
       redirect_to :root
     end
@@ -33,11 +40,29 @@ class CheckinsController < ApplicationController
   # POST /checkins
   # POST /checkins.json
   def create
-    checkin = Checkin.create(user_id: current_user.id)
-    params[:question].each do |question_id, option_id|
-      Answer.create(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id, checkin_id: checkin.id)
+
+    begin
+      Checkin.transaction do
+        @checkin = Checkin.new(user_id: current_user.id)
+        params[:question].each do |question_id, option_id|
+          if option_id.to_i == 0
+            flash[:errors] = "Oh no! You forgot to select an answer for one or more the questions :("
+            @questions = Question.all
+            @options = Option.all
+            redirect_to new_checkin_path
+            return
+          else
+            Answer.create(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id, checkin_id: @checkin.id)
+          end
+          @checkin.save
+        end
+      end
+      redirect_to user_path(current_user)
+    rescue ActiveRecord::RecordInvalid => invalid
     end
-    redirect_to user_path(current_user)
+
+
+    
     # @checkin = Checkin.new(checkin_params)
 
     # respond_to do |format|
@@ -83,6 +108,6 @@ class CheckinsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checkin_params
-      params[:checkin]
+      params[:checkin].require(:questions)
     end
-end
+  end

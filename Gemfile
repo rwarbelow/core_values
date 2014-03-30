@@ -24,7 +24,9 @@ gem 'chosen-rails'
 gem "compass-rails", "~> 1.1.2"
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 gem 'devise'
+gem "simple_form"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'

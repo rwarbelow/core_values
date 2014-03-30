@@ -1,5 +1,5 @@
 <br><br>
-<table class="table table-hover">
+<table class="table paddedtable">
 	<thead>
 		<th></th>
 		<% @checkins.each do |c| %>
@@ -10,37 +10,37 @@
 		<tr>
 			<td>Respect</td>
 			<% @respect_scores.each do |score| %>
-				<td><%= score %>%</td>
+				<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
 			<td>Integrity</td>
 			<% @integrity_scores.each do |score| %>
-				<td><%= score %>%</td>
+				<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
 			<td>Perseverance</td>
 			<% @perseverance_scores.each do |score| %>
-				<td><%= score %>%</td>
+				<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
 			<td>Passion</td>
 			<% @passion_scores.each do |score| %>
-				<td><%= score %>%</td>
+				<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
 			<td>Empowerment</td>
 			<% @empowerment_scores.each do |score| %>
-				<td><%= score %>%</td>
+				<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr>
 			<td>Team</td>
 			<% @team_scores.each do |score| %>
-				<td><%= score %>%</td>
+				<td class="<%= css(score) %>"><%= score %>%</td>
 			<% end %>
 		</tr>
 		<tr class="info">
