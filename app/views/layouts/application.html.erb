@@ -17,12 +17,12 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<% if current_user.admin? %>
-<!-- 					<li>
+					<li>
 						<%= form_tag import_users_path, multipart: true do %>
 						<%= file_field_tag :file %>
 						<%= submit_tag "Import" %>
 						<% end %>
-					</li> -->
+					</li> 
 					<li>
 						<%= form_tag admin_student_path, :method=>'get' do %>
 						<%= select_tag "id", options_from_collection_for_select(User.select { |s| s.user_type == "student" }, :id, "full_name"),{multiple:false, :prompt => "Select a Student", class: 'chosen-select'} %>
