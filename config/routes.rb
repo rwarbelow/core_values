@@ -1,3 +1,9 @@
+class AuthConstraint
+  def matches?(request)
+     request.session[:user_id].present?
+   end
+end
+
 CoreValues::Application.routes.draw do
 
   resources :comments
@@ -20,7 +26,10 @@ CoreValues::Application.routes.draw do
   get '/422' => 'errors#server_error'
   get '/500' => 'errors#server_error'
 
-  root 'welcome#index'
+  root :to => 'welcome#index'
+
+  root :to => 'home#index', :constraints => AuthConstraint.new
+
 
 
   # Example of regular route:
