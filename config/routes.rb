@@ -16,10 +16,6 @@ CoreValues::Application.routes.draw do
   
   delete '/logout', to: 'sessions#destroy'
 
-  get '/404' => 'errors#not_found'
-  get '/422' => 'errors#server_error'
-  get '/500' => 'errors#server_error'
-
   root 'welcome#index'
 
 
