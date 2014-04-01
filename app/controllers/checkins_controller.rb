@@ -62,22 +62,25 @@ class CheckinsController < ApplicationController
       @questions = Question.all
       @options = Option.all
       redirect_to new_checkin_path
+      return
     else 
-      @checkin.save
       answers = []
       params[:question].each do |question_id, option_id|
-        answers << Answer.create(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id, checkin_id: @checkin.id)
+        answers << @checkin.answers.build(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id)
       end
-      if @checkin.answers.count != 47
+      if answers.count != 47
         flash[:errors] = "Uh oh, we had an error :( Please try again."
         answers.each do |a|
           a.destroy
         end
         @checkin.destroy
         redirect_to new_checkin_path
+        return
       end
+      @checkin.save
       @comment = Comment.create(user_id: current_user.id, checkin_id: @checkin.id, comment: params[:comment])
       redirect_to user_path(current_user)
+      return
     end
   end
 
