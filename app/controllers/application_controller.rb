@@ -21,17 +21,17 @@ class ApplicationController < ActionController::Base
 
   def css(score)
     case score
-    when 90..100
+    when 4.5..5
       "peterriver"
-    when 80...90
+    when 4...4.5
       "emerald"
-    when 70...80
+    when 3.5...4
       "sunflower"
-    when 60...70
+    when 3...3.5
       "carrot"
-    when 50...70
+    when 2...3
       "pumpkin"
-    when 0...50
+    when 0...2
       "pomegranate"
     end
   end

@@ -64,7 +64,7 @@ class CheckinsController < ApplicationController
       redirect_to new_checkin_path
     else 
       @checkin.save
-      answers <<
+      answers = []
       params[:question].each do |question_id, option_id|
         answers << Answer.create(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id, checkin_id: @checkin.id)
       end
