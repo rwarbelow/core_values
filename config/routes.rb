@@ -1,7 +1,7 @@
 class AuthConstraint
   def matches?(request)
-     request.session[:user_id].present?
-   end
+   request.session[:user_id].present?
+ end
 end
 
 CoreValues::Application.routes.draw do
@@ -22,13 +22,10 @@ CoreValues::Application.routes.draw do
   
   delete '/logout', to: 'sessions#destroy'
 
-  get '/404' => 'errors#not_found'
-  get '/422' => 'errors#server_error'
-  get '/500' => 'errors#server_error'
+  get '/', :to => 'welcome#index', :constraints => AuthConstraint.new
 
-  root :to => 'welcome#index'
+  get '/', :to => 'welcome#index'
 
-  root :to => 'home#index', :constraints => AuthConstraint.new
 
 
 

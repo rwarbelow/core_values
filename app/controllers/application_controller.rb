@@ -5,10 +5,18 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   private
 
-  def current_user
-  	@current_user ||= User.find(session[:user_id]) if session[:user_id]
+  def current_user?
+
   end
-  
+  helper_method :current_user?
+
+  def current_user
+    begin
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    rescue ActiveRecord::RecordNotFound
+    end
+  end
+
   helper_method :current_user
 
   def css(score)
@@ -27,21 +35,11 @@ class ApplicationController < ActionController::Base
       "pomegranate"
     end
   end
-  
+
   helper_method :css
 
   def authorize
-  	redirect_to login_url, alert: "Not authorized" if current_user.nil?
-  end
+   redirect_to login_url, alert: "Not authorized" if current_user.nil?
+ end
 
-  rescue_from ActiveRecord::RecordNotFound do |exception|
-    render_error 404
-  end
-
-  def render_error(status)
-    respond_to do |format|
-      format.html { render status.to_s() + '.html', :status => status, :layout => 'errors'}
-      format.all { render :nothing => true, :status => status }
-    end
-  end
 end

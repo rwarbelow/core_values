@@ -54,28 +54,32 @@ class CheckinsController < ApplicationController
   # POST /checkins
   # POST /checkins.json
   def create
-
-    begin
-      Checkin.transaction do
-        @checkin = Checkin.new(user_id: current_user.id)
-        params[:question].each do |question_id, option_id|
-          if option_id.to_i == 0
-            flash[:errors] = "Oh no! You forgot to select an answer for one or more questions :("
-              @questions = Question.all
-              @options = Option.all
-              redirect_to new_checkin_path
-              return
-            else
-              Answer.create(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id, checkin_id: @checkin.id)
-            end
-            @checkin.save
-          end
-          @comment = Comment.create(user_id: current_user.id, checkin_id: @checkin.id, comment: params[:comment])
-        end
-        redirect_to user_path(current_user)
-      rescue ActiveRecord::RecordInvalid => invalid
+    @checkin = Checkin.new(user_id: current_user.id)
+    responses = params[:question]
+    flattened_responses = responses.flatten
+    if flattened_responses.include?("") || flattened_responses.include?("0") || responses.count != 47
+      flash[:errors] = "Oh no! You forgot to select an answer for one or more questions :("
+      @questions = Question.all
+      @options = Option.all
+      redirect_to new_checkin_path
+    else 
+      @checkin.save
+      answers <<
+      params[:question].each do |question_id, option_id|
+        answers << Answer.create(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id, checkin_id: @checkin.id)
       end
+      if @checkin.answers.count != 47
+        flash[:errors] = "Uh oh, we had an error :( Please try again."
+        answers.each do |a|
+          a.destroy
+        end
+        @checkin.destroy
+        redirect_to new_checkin_path
+      end
+      @comment = Comment.create(user_id: current_user.id, checkin_id: @checkin.id, comment: params[:comment])
+      redirect_to user_path(current_user)
     end
+  end
 
   # PATCH/PUT /checkins/1
   # PATCH/PUT /checkins/1.json
