@@ -20,6 +20,10 @@ class Checkin < ActiveRecord::Base
 		a
 	end
 
+	def self.invalid?(responses)
+		responses.flatten.include?("") || responses.flatten.include?("0") || responses.count != 47
+	end
+
 	def self.get_last_five_checkins(user_id)
 		where(user_id: user_id).last(8).reverse
 	end

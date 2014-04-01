@@ -56,31 +56,19 @@ class CheckinsController < ApplicationController
   def create
     @checkin = Checkin.new(user_id: current_user.id)
     responses = params[:question]
-    flattened_responses = responses.flatten
-    if flattened_responses.include?("") || flattened_responses.include?("0") || responses.count != 47
+    if Checkin.invalid?(responses)
       flash[:errors] = "Oh no! You forgot to select an answer for one or more questions :("
       @questions = Question.all
       @options = Option.all
       redirect_to new_checkin_path
       return
     else 
-      answers = []
       params[:question].each do |question_id, option_id|
-        answers << @checkin.answers.build(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id)
+        @checkin.answers.build(question_id: question_id, value: Option.find(option_id.to_i).value, option_id: option_id.to_i, user_id: current_user.id)
       end
-      if answers.count != 47
-        flash[:errors] = "Uh oh, we had an error :( Please try again."
-        answers.each do |a|
-          a.destroy
-        end
-        @checkin.destroy
-        redirect_to new_checkin_path
-        return
-      end
+      @checkin.comments.build(user_id: current_user.id, comment: params[:comment])
       @checkin.save
-      @comment = Comment.create(user_id: current_user.id, checkin_id: @checkin.id, comment: params[:comment])
       redirect_to user_path(current_user)
-      return
     end
   end
 
