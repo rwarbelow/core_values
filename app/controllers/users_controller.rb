@@ -24,6 +24,7 @@ class UsersController < ApplicationController
 
   def admin_student
     if current_user.admin?
+      p params
       @student = User.find(params[:id])
       @checkins = Checkin.get_last_five_checkins(@student)
       @respect_scores = Checkin.gather_last_five(@student, 1, @checkins)
@@ -40,6 +41,8 @@ class UsersController < ApplicationController
       @passion_questions = CoreValue.find(4).questions
       @empowerment_questions = CoreValue.find(5).questions
       @team_questions = CoreValue.find(6).questions
+      @forward_student = User.find((@student.id + 1))
+    @backward_student = User.find((@student.id - 1))
     else
       redirect_to :root
     end
@@ -65,6 +68,7 @@ class UsersController < ApplicationController
     @passion_questions = CoreValue.find(4).questions
     @empowerment_questions = CoreValue.find(5).questions
     @team_questions = CoreValue.find(6).questions
+    
   end
 
   # GET /users/new

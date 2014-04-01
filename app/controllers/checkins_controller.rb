@@ -12,10 +12,9 @@ class CheckinsController < ApplicationController
   def show
     if current_user.id == @checkin.user_id || current_user.admin?
       @checkin = Checkin.find(params[:id])
-      @student_comments = @checkin.comments.map { |c| c if c.user_id == @checkin.user.id }
-      @admin_comments = @checkin.comments - @student_comments
+      @student_comments = @checkin.comments.select { |c| c if c.user_id == @checkin.user.id }
+      @admin_comments = @checkin.comments.select { |c| c if c.user_id != @checkin.user.id }
       @student_id = @checkin.user_id
-      @answers = @checkin.answers
       @checkin_id = @checkin.id
       @all_checkins = Checkin.where(user_id: @student_id).sort! { |a, b| a.created_at <=> b.created_at }
       @back_id = @all_checkins[(@all_checkins.index(@checkin) - 1)]

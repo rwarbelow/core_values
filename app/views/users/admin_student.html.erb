@@ -1,5 +1,7 @@
 <% if current_user.admin? %>
-<h3><%= @student.full_name %>'s Check-ins </h3>
+<h3><%= link_to '&larr;'.html_safe, admin_student_path(:id => @backward_student.id) %> 
+	<%= @student.full_name %>'s Check-ins <%= link_to '&rarr;'.html_safe, admin_student_path(:id => @forward_student.id) %> </h5></h3>
+
 <%= render '/shared/score_table' %>
 
 

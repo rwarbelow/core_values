@@ -1,4 +1,4 @@
-<h3><%= @checkin.user.full_name if @checkin.user.user_type == "admin" %></h3>
+<h3><%= @checkin.user.full_name if @current_user.user_type == "admin" %></h3>
 <h5><% if @back_id %>
 	<%= link_to '&larr;'.html_safe, checkin_path(@back_id) %> 
 	<% end %> 
